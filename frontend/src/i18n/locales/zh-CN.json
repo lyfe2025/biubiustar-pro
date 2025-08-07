@@ -1,0 +1,335 @@
+{
+  "common": {
+    "loading": "加载中...",
+    "error": "出错了",
+    "success": "成功",
+    "confirm": "确认",
+    "cancel": "取消",
+    "save": "保存",
+    "edit": "编辑",
+    "delete": "删除",
+    "search": "搜索",
+    "submit": "提交",
+    "back": "返回",
+    "next": "下一步",
+    "previous": "上一步",
+    "close": "关闭",
+    "open": "打开",
+    "more": "更多",
+    "less": "收起",
+    "all": "全部",
+    "none": "无",
+    "yes": "是",
+    "no": "否"
+  },
+  "nav": {
+    "home": "首页",
+    "hot": "热门",
+    "about": "关于公司",
+    "profile": "个人中心",
+    "settings": "设置",
+    "logout": "退出登录"
+  },
+  "auth": {
+    "login": "登录",
+    "register": "注册",
+    "logout": "退出登录",
+    "signingIn": "登录中...",
+    "signingUp": "注册中...",
+    "email": "邮箱",
+    "username": "用户名",
+    "password": "密码",
+    "confirmPassword": "确认密码",
+    "forgotPassword": "忘记密码？",
+    "rememberMe": "记住我",
+    "loginSuccess": "登录成功",
+    "registerSuccess": "注册成功",
+    "logoutSuccess": "退出成功",
+    "loginFailed": "登录失败",
+    "registerFailed": "注册失败",
+    "invalidEmail": "邮箱格式不正确",
+    "invalidPassword": "密码长度至少6位",
+    "passwordMismatch": "两次密码输入不一致",
+    "usernameRequired": "用户名不能为空",
+    "emailRequired": "邮箱不能为空",
+    "passwordRequired": "密码不能为空",
+    "alreadyHaveAccount": "已有账号？",
+    "noAccount": "还没有账号？",
+    "switchToLogin": "立即登录",
+    "switchToRegister": "立即注册",
+    "emailOrUsernameRequired": "邮箱或用户名不能为空",
+    "invalidUsername": "用户名长度至少3位",
+    "invalidUsernameFormat": "用户名只能包含字母、数字和下划线",
+    "forgotPasswordTitle": "忘记密码",
+    "resetPassword": "重置密码",
+    "sendResetEmail": "发送重置邮件",
+    "resetEmailSent": "重置邮件已发送",
+    "resetEmailSentDesc": "我们已向您的邮箱发送了密码重置链接，请查收邮件并按照说明操作。",
+    "backToLogin": "返回登录",
+    "newPassword": "新密码",
+    "confirmNewPassword": "确认新密码",
+    "resetPasswordSuccess": "密码重置成功",
+    "resetPasswordFailed": "密码重置失败",
+    "invalidResetToken": "重置链接无效或已过期",
+    "emailVerification": "邮箱验证",
+    "verifyEmail": "验证邮箱",
+    "emailNotVerified": "邮箱未验证",
+    "emailNotVerifiedDesc": "请先验证您的邮箱地址才能继续使用所有功能。",
+    "resendVerification": "重新发送验证邮件",
+    "verificationEmailSent": "验证邮件已发送",
+    "verificationEmailSentDesc": "我们已向您的邮箱发送了验证链接，请查收邮件并点击链接完成验证。",
+    "emailVerified": "邮箱验证成功",
+    "emailVerificationFailed": "邮箱验证失败",
+    "invalidVerificationToken": "验证链接无效或已过期",
+    "checkYourEmail": "请查收邮件",
+    "didNotReceiveEmail": "没有收到邮件？",
+    "resendIn": "{{seconds}}秒后可重新发送",
+    "resend": "重新发送"
+  },
+  "home": {
+    "title": "欢迎来到 BiuBiuStar",
+    "subtitle": "发现精彩内容，分享美好时光",
+    "explore": "开始探索",
+    "learnMore": "了解更多",
+    "whyChooseUs": "为什么选择我们",
+    "loading": "正在加载精彩内容...",
+    "features": {
+      "content": {
+        "title": "精彩内容",
+        "description": "发现和分享有趣的内容"
+      },
+      "trending": {
+        "title": "热门趋势",
+        "description": "跟上最新的热门话题"
+      },
+      "events": {
+        "title": "活动推荐",
+        "description": "参与精彩的社区活动"
+      }
+    },
+    "stats": {
+      "users": "用户",
+      "posts": "内容",
+      "likes": "点赞"
+    },
+    "hotPosts": {
+      "title": "热门内容",
+      "quickPreview": "快速预览",
+      "readMore": "阅读更多"
+    },
+    "activities": {
+      "title": "精彩活动",
+      "participants": "参与者",
+      "joinNow": "立即参与",
+      "status": {
+        "active": "进行中",
+        "ending": "即将结束",
+        "hot": "火热进行"
+      }
+    },
+    "cta": "立即加入我们"
+  },
+  "hot": {
+    "title": "热门内容",
+    "filter": {
+      "all": "全部时间",
+      "today": "今天",
+      "week": "本周",
+      "month": "本月"
+    },
+    "sort": {
+      "latest": "最新",
+      "hot": "最热",
+      "mostCommented": "评论最多",
+      "mostLiked": "点赞最多"
+    },
+    "contentType": {
+      "all": "全部类型",
+      "text": "文章",
+      "image": "图片",
+      "video": "视频"
+    },
+    "types": {
+      "image": "图片",
+      "video": "视频"
+    },
+    "search": {
+      "placeholder": "搜索内容...",
+      "clear": "清除",
+      "history": "搜索历史",
+      "noHistory": "暂无搜索历史",
+      "clearHistory": "清除历史",
+      "results": "搜索结果",
+      "noResults": "未找到相关内容"
+    },
+    "tags": {
+      "popular": "热门标签",
+      "selected": "已选择"
+    },
+    "results": {
+      "count": "共 {{count}} 条结果",
+      "filtered": "筛选后 {{count}} 条结果"
+    },
+    "actions": {
+      "clearFilters": "清除筛选",
+      "retry": "重试",
+      "loadMore": "加载更多",
+      "backToTop": "回到顶部",
+      "quickActions": "快速操作",
+      "share": "分享",
+      "quickPreview": "快速预览"
+    },
+    "loading": {
+      "posts": "正在加载内容...",
+      "more": "加载更多中...",
+      "search": "搜索中..."
+    },
+    "noContent": "暂无热门内容",
+    "hot": "热门",
+    "fetchError": "获取热门内容失败",
+    "loadError": "加载失败，请重试",
+    "noMoreContent": "没有更多内容了"
+  },
+  "profile": {
+    "editProfile": "编辑资料",
+    "follow": "关注",
+    "following": "已关注",
+    "followers": "粉丝",
+    "posts": "帖子",
+    "likes": "点赞",
+    "joinedAt": "加入于",
+    "myPosts": "我的帖子",
+    "myLikes": "我的点赞",
+    "userPosts": "TA的帖子",
+    "userLikes": "TA的点赞",
+    "noPosts": "还没有发布任何帖子",
+    "noLikes": "还没有点赞任何帖子",
+    "followSuccess": "关注成功",
+    "unfollowSuccess": "已取消关注",
+    "followError": "操作失败",
+    "fetchUserError": "获取用户信息失败",
+    "fetchPostsError": "获取帖子失败"
+  },
+  "post": {
+    "like": "点赞",
+    "comment": "评论",
+    "share": "分享",
+    "bookmark": "收藏",
+    "viewMore": "查看更多",
+    "noMorePosts": "没有更多内容了",
+    "detail": "帖子详情",
+    "notFound": "帖子不存在",
+    "views": "浏览",
+    "comments": "评论",
+    "writeComment": "写下你的评论...",
+    "submitting": "发布中...",
+    "submit": "发布",
+    "loginToComment": "登录后才能发表评论",
+    "reply": "回复",
+    "relatedPosts": "相关帖子",
+    "noRelatedPosts": "暂无相关帖子",
+    "likeError": "操作失败",
+    "loginRequired": "请先登录",
+    "timeAgo": {
+      "minutesAgo": "{{count}}分钟前",
+      "hoursAgo": "{{count}}小时前",
+      "daysAgo": "{{count}}天前"
+    }
+  },
+  "error": {
+    "404": {
+      "title": "页面未找到",
+      "message": "抱歉，您访问的页面不存在或已被移除。",
+      "submessage": "请检查网址是否正确，或返回首页继续浏览。",
+      "backHome": "返回首页",
+      "goBack": "返回上页",
+      "contact": "如果您认为这是一个错误，请联系我们：",
+      "helpCenter": "帮助中心"
+    }
+  },
+  "language": {
+    "switch": "切换语言",
+    "current": "当前语言",
+    "zh-CN": "中文简体",
+    "en-US": "English"
+  },
+  "about": {
+    "hero": {
+      "title": "关于 Biubiustar",
+      "subtitle": "连接世界，分享精彩 - 打造最具活力的社交媒体平台"
+    },
+    "intro": {
+      "title": "企业介绍",
+      "description1": "Biubiustar 是一个充满活力的社交媒体平台，致力于为全球用户提供最优质的内容分享和社交体验。我们相信每个人都有独特的故事值得被分享，每个声音都应该被听见。",
+      "description2": "自成立以来，我们始终坚持以用户为中心的理念，不断创新和优化产品功能，为用户创造更加便捷、有趣、安全的社交环境。我们的团队由来自世界各地的优秀人才组成，共同致力于推动社交媒体行业的发展。",
+      "description3": "我们的平台支持多种内容形式，包括文字、图片、视频等，让用户能够以最自然的方式表达自己。同时，我们也注重用户隐私保护和内容安全，确保每位用户都能在一个健康、积极的环境中享受社交乐趣。",
+      "mission": {
+        "title": "我们的使命",
+        "description": "通过创新的技术和贴心的服务，连接全球用户，让每个人都能自由地分享生活、表达观点、建立联系，共同创造一个更加开放、包容、充满活力的数字世界。"
+      },
+      "vision": {
+        "title": "我们的愿景",
+        "description": "成为全球领先的社交媒体平台，让 Biubiustar 成为人们日常生活中不可或缺的一部分，为用户创造无限的可能性和价值。"
+      }
+    },
+    "timeline": {
+      "title": "发展历程",
+      "2020": {
+        "title": "项目启动",
+        "description": "Biubiustar 项目正式启动，核心团队成立，开始产品概念设计和技术架构规划。"
+      },
+      "2021": {
+        "title": "产品开发",
+        "description": "完成核心功能开发，包括用户系统、内容发布、社交互动等基础模块，进行内部测试。"
+      },
+      "2022": {
+        "title": "Beta 版本发布",
+        "description": "发布 Beta 测试版本，邀请种子用户参与测试，收集反馈并持续优化产品体验。"
+      },
+      "2023": {
+        "title": "正式上线",
+        "description": "平台正式上线，开始面向公众提供服务，用户数量快速增长，社区生态逐步建立。"
+      },
+      "2024": {
+        "title": "全球扩张",
+        "description": "启动国际化战略，支持多语言服务，拓展海外市场，成为具有全球影响力的社交平台。"
+      }
+    },
+    "achievements": {
+      "title": "业绩展示",
+      "users": "注册用户",
+      "posts": "发布内容",
+      "engagement": "用户活跃度"
+    },
+    "contact": {
+      "title": "联系我们",
+      "info": {
+        "title": "联系信息"
+      },
+      "address": "越南胡志明市第一郡 Nguyen Hue 大街 123 号",
+      "hours": {
+        "title": "工作时间",
+        "weekdays": "周一至周五：9:00 - 18:00",
+        "weekends": "周六至周日：10:00 - 16:00"
+      }
+    },
+    "form": {
+      "name": "姓名",
+      "email": "邮箱",
+      "phone": "电话",
+      "category": "合作类型",
+      "message": "留言内容",
+      "selectCategory": "请选择合作类型",
+      "submit": "发送消息",
+      "submitting": "发送中...",
+      "submitted": "发送成功"
+    },
+    "cooperation": {
+      "brand": "品牌合作",
+      "content": "内容合作",
+      "technology": "技术合作",
+      "investment": "投资合作",
+      "other": "其他合作"
+    }
+  }
+}

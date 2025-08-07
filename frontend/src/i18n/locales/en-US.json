@@ -1,0 +1,318 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "save": "Save",
+    "edit": "Edit",
+    "delete": "Delete",
+    "search": "Search",
+    "submit": "Submit",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "close": "Close",
+    "open": "Open",
+    "more": "More",
+    "less": "Less",
+    "all": "All",
+    "none": "None",
+    "yes": "Yes",
+    "no": "No"
+  },
+  "nav": {
+    "home": "Home",
+    "hot": "Hot",
+    "about": "About Us",
+    "profile": "Profile",
+    "settings": "Settings",
+    "logout": "Logout"
+  },
+  "auth": {
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout",
+    "signingIn": "Signing in...",
+    "signingUp": "Signing up...",
+    "email": "Email",
+    "username": "Username",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "forgotPassword": "Forgot Password?",
+    "rememberMe": "Remember Me",
+    "loginSuccess": "Login successful",
+    "registerSuccess": "Registration successful",
+    "logoutSuccess": "Logout successful",
+    "loginFailed": "Login failed",
+    "registerFailed": "Registration failed",
+    "invalidEmail": "Invalid email format",
+    "invalidPassword": "Password must be at least 6 characters",
+    "passwordMismatch": "Passwords do not match",
+    "usernameRequired": "Username is required",
+    "emailRequired": "Email is required",
+    "passwordRequired": "Password is required",
+    "alreadyHaveAccount": "Already have an account?",
+    "noAccount": "Don't have an account?",
+    "switchToLogin": "Sign In",
+    "switchToRegister": "Sign Up",
+    "emailOrUsernameRequired": "Email or username is required",
+    "invalidUsername": "Username must be at least 3 characters",
+    "invalidUsernameFormat": "Username can only contain letters, numbers and underscores",
+    "forgotPasswordTitle": "Forgot Password",
+    "resetPassword": "Reset Password",
+    "sendResetEmail": "Send Reset Email",
+    "resetEmailSent": "Reset Email Sent",
+    "resetEmailSentDesc": "We've sent a password reset link to your email. Please check your inbox and follow the instructions.",
+    "backToLogin": "Back to Login",
+    "newPassword": "New Password",
+    "confirmNewPassword": "Confirm New Password",
+    "resetPasswordSuccess": "Password reset successfully",
+    "resetPasswordFailed": "Password reset failed",
+    "invalidResetToken": "Reset link is invalid or expired",
+    "emailVerification": "Email Verification",
+    "verifyEmail": "Verify Email",
+    "emailNotVerified": "Email Not Verified",
+    "emailNotVerifiedDesc": "Please verify your email address to continue using all features.",
+    "resendVerification": "Resend Verification Email",
+    "verificationEmailSent": "Verification Email Sent",
+    "verificationEmailSentDesc": "We've sent a verification link to your email. Please check your inbox and click the link to complete verification.",
+    "emailVerified": "Email verified successfully",
+    "emailVerificationFailed": "Email verification failed",
+    "invalidVerificationToken": "Verification link is invalid or expired",
+    "checkYourEmail": "Check Your Email",
+    "didNotReceiveEmail": "Didn't receive the email?",
+    "resendIn": "Resend in {{seconds}} seconds",
+    "resend": "Resend"
+  },
+  "home": {
+    "title": "Welcome to Biubiustar",
+    "subtitle": "Share your amazing moments, discover interesting content, and explore the world with like-minded friends",
+    "startExploring": "Start Exploring",
+    "learnMore": "Learn More",
+    "whyChoose": "Why Choose Biubiustar?",
+    "features": {
+      "content": {
+        "title": "Amazing Content",
+        "description": "Discover and share the most interesting content, making every moment shine"
+      },
+      "trending": {
+        "title": "Trending Topics",
+        "description": "Stay up-to-date with the latest trends and never miss exciting discussions"
+      },
+      "activities": {
+        "title": "Activity Recommendations",
+        "description": "Participate in various interesting activities and meet like-minded friends"
+      }
+    },
+    "cta": {
+      "title": "Ready to start your amazing journey?",
+      "subtitle": "Join the Biubiustar community and share life's beauty with millions of users",
+      "joinNow": "Join Now"
+    }
+  },
+  "hot": {
+    "title": "Hot Content",
+    "filter": {
+      "all": "All Time",
+      "today": "Today",
+      "week": "This Week",
+      "month": "This Month"
+    },
+    "sort": {
+      "latest": "Latest",
+      "hot": "Hot",
+      "mostCommented": "Most Commented",
+      "mostLiked": "Most Liked"
+    },
+    "contentType": {
+      "all": "All Types",
+      "text": "Articles",
+      "image": "Images",
+      "video": "Videos"
+    },
+    "types": {
+      "image": "Image",
+      "video": "Video"
+    },
+    "search": {
+      "placeholder": "Search content...",
+      "clear": "Clear",
+      "history": "Search History",
+      "noHistory": "No search history",
+      "clearHistory": "Clear History",
+      "results": "Search Results",
+      "noResults": "No relevant content found"
+    },
+    "tags": {
+      "popular": "Popular Tags",
+      "selected": "Selected"
+    },
+    "results": {
+      "count": "{{count}} results",
+      "filtered": "{{count}} filtered results"
+    },
+    "actions": {
+      "clearFilters": "Clear Filters",
+      "retry": "Retry",
+      "loadMore": "Load More",
+      "backToTop": "Back to Top",
+      "quickActions": "Quick Actions",
+      "share": "Share",
+      "quickPreview": "Quick Preview"
+    },
+    "loading": {
+      "posts": "Loading content...",
+      "more": "Loading more...",
+      "search": "Searching..."
+    },
+    "noContent": "No hot content available",
+    "hot": "Hot",
+    "fetchError": "Failed to fetch hot content",
+    "loadError": "Loading failed, please retry",
+    "noMoreContent": "No more content"
+  },
+  "profile": {
+    "editProfile": "Edit Profile",
+    "follow": "Follow",
+    "following": "Following",
+    "followers": "Followers",
+    "posts": "Posts",
+    "likes": "Likes",
+    "joinedAt": "Joined",
+    "myPosts": "My Posts",
+    "myLikes": "My Likes",
+    "userPosts": "Posts",
+    "userLikes": "Likes",
+    "noPosts": "No posts yet",
+    "noLikes": "No liked posts yet",
+    "followSuccess": "Followed successfully",
+    "unfollowSuccess": "Unfollowed",
+    "followError": "Operation failed",
+    "fetchUserError": "Failed to fetch user info",
+    "fetchPostsError": "Failed to fetch posts"
+  },
+  "post": {
+    "like": "Like",
+    "comment": "Comment",
+    "share": "Share",
+    "bookmark": "Bookmark",
+    "viewMore": "View More",
+    "noMorePosts": "No more posts",
+    "detail": "Post Detail",
+    "notFound": "Post not found",
+    "views": "views",
+    "comments": "Comments",
+    "writeComment": "Write your comment...",
+    "submitting": "Submitting...",
+    "submit": "Submit",
+    "loginToComment": "Please login to comment",
+    "reply": "Reply",
+    "relatedPosts": "Related Posts",
+    "noRelatedPosts": "No related posts",
+    "likeError": "Operation failed",
+    "loginRequired": "Please login first",
+    "timeAgo": {
+      "minutesAgo": "{{count}} minutes ago",
+      "hoursAgo": "{{count}} hours ago",
+      "daysAgo": "{{count}} days ago"
+    }
+  },
+  "error": {
+    "404": {
+      "title": "Page Not Found",
+      "message": "Sorry, the page you are looking for does not exist or has been removed.",
+      "submessage": "Please check if the URL is correct, or return to the homepage to continue browsing.",
+      "backHome": "Back to Home",
+      "goBack": "Go Back",
+      "contact": "If you think this is an error, please contact us:",
+      "helpCenter": "Help Center"
+    }
+  },
+  "language": {
+    "switch": "Switch Language",
+    "current": "Current Language",
+    "zh-CN": "中文简体",
+    "en-US": "English"
+  },
+  "about": {
+    "hero": {
+      "title": "About Biubiustar",
+      "subtitle": "Connecting the World, Sharing Excellence - Building the Most Dynamic Social Media Platform"
+    },
+    "intro": {
+      "title": "Company Introduction",
+      "description1": "Biubiustar is a vibrant social media platform dedicated to providing users worldwide with the highest quality content sharing and social experience. We believe everyone has a unique story worth sharing, and every voice deserves to be heard.",
+      "description2": "Since our establishment, we have always adhered to a user-centric philosophy, continuously innovating and optimizing product features to create a more convenient, interesting, and secure social environment for users. Our team consists of outstanding talents from around the world, working together to drive the development of the social media industry.",
+      "description3": "Our platform supports various content formats, including text, images, videos, and more, allowing users to express themselves in the most natural way. We also prioritize user privacy protection and content security, ensuring every user can enjoy social fun in a healthy and positive environment.",
+      "mission": {
+        "title": "Our Mission",
+        "description": "Through innovative technology and thoughtful service, we connect global users, enabling everyone to freely share life, express opinions, and build connections, creating a more open, inclusive, and vibrant digital world together."
+      },
+      "vision": {
+        "title": "Our Vision",
+        "description": "To become the world's leading social media platform, making Biubiustar an indispensable part of people's daily lives and creating unlimited possibilities and value for users."
+      }
+    },
+    "timeline": {
+      "title": "Development Timeline",
+      "2020": {
+        "title": "Project Launch",
+        "description": "The Biubiustar project was officially launched, the core team was established, and product concept design and technical architecture planning began."
+      },
+      "2021": {
+        "title": "Product Development",
+        "description": "Completed core feature development, including user system, content publishing, social interaction and other basic modules, and conducted internal testing."
+      },
+      "2022": {
+        "title": "Beta Release",
+        "description": "Released the Beta test version, invited seed users to participate in testing, collected feedback and continuously optimized the product experience."
+      },
+      "2023": {
+        "title": "Official Launch",
+        "description": "The platform officially launched, began providing services to the public, user numbers grew rapidly, and the community ecosystem was gradually established."
+      },
+      "2024": {
+        "title": "Global Expansion",
+        "description": "Launched internationalization strategy, supported multilingual services, expanded overseas markets, and became a globally influential social platform."
+      }
+    },
+    "achievements": {
+      "title": "Performance Showcase",
+      "users": "Registered Users",
+      "posts": "Published Content",
+      "engagement": "User Engagement"
+    },
+    "contact": {
+      "title": "Contact Us",
+      "info": {
+        "title": "Contact Information"
+      },
+      "address": "123 Nguyen Hue Street, District 1, Ho Chi Minh City, Vietnam",
+      "hours": {
+        "title": "Business Hours",
+        "weekdays": "Monday to Friday: 9:00 - 18:00",
+        "weekends": "Saturday to Sunday: 10:00 - 16:00"
+      }
+    },
+    "form": {
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone",
+      "category": "Cooperation Type",
+      "message": "Message",
+      "selectCategory": "Please select cooperation type",
+      "submit": "Send Message",
+      "submitting": "Sending...",
+      "submitted": "Sent Successfully"
+    },
+    "cooperation": {
+      "brand": "Brand Partnership",
+      "content": "Content Collaboration",
+      "technology": "Technology Partnership",
+      "investment": "Investment Cooperation",
+      "other": "Other Cooperation"
+    }
+  }
+}
