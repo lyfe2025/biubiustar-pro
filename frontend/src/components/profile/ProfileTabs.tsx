@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, List, FileText, Heart, Bookmark, Archive, Clock, Users, UserCheck, Trophy, BarChart3, Bell, Settings } from 'lucide-react';
+import { Grid, List, FileText, Heart, Bookmark, Archive, Clock, Users, UserCheck, Trophy, BarChart3, Bell, Settings, Calendar } from 'lucide-react';
 import { TabType, ViewMode } from '../../types/profile';
 
 interface ProfileTabsProps {
@@ -70,6 +70,12 @@ export const ProfileTabs: React.FC<ProfileTabsProps> = ({
       label: '成就',
       icon: Trophy,
       visible: true
+    },
+    {
+      id: 'activities' as TabType,
+      label: '活动报名',
+      icon: Calendar,
+      visible: isOwnProfile
     },
     {
       id: 'analytics' as TabType,

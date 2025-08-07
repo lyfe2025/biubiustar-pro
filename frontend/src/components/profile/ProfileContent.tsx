@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Search, Heart, MessageCircle, Share, Trash2, Edit, Send, User, FileText, Calendar, Trophy, Award, Bell } from 'lucide-react';
-import { TabType, ViewMode, FilterType, Post, Draft, UserProfile, Achievement, Notification } from '../../types/profile';
+import { Search, Heart, MessageCircle, Share, Trash2, Edit, Send, User, FileText, Calendar, Trophy, Award, Bell, MapPin, Clock, Users, X } from 'lucide-react';
+import { TabType, ViewMode, FilterType, Post, Draft, UserProfile, Achievement, Notification, ActivityRegistration } from '../../types/profile';
 import { formatDate, formatNumber, getDefaultAvatarUrl } from '../../utils/profileUtils';
 
 interface ProfileContentProps {
@@ -11,6 +11,7 @@ interface ProfileContentProps {
   achievements: Achievement[];
   followers: UserProfile[];
   following: UserProfile[];
+  activityRegistrations: ActivityRegistration[];
   viewMode: ViewMode;
   searchQuery: string;
   filterType: FilterType;
@@ -32,6 +33,7 @@ export const ProfileContent: React.FC<ProfileContentProps> = ({
   achievements,
   followers,
   following,
+  activityRegistrations,
   viewMode,
   searchQuery,
   filterType,
@@ -383,6 +385,99 @@ export const ProfileContent: React.FC<ProfileContentProps> = ({
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {achievements.map(achievement => (
               <AchievementCard key={achievement.id} achievement={achievement} />
+            ))}
+          </div>
+        );
+
+      case 'activities':
+        if (!activityRegistrations || activityRegistrations.length === 0) {
+          return (
+            <div className="text-center py-12">
+              <Calendar className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+              <p className="text-gray-500">还没有报名任何活动</p>
+            </div>
+          );
+        }
+        
+        return (
+          <div className="space-y-4">
+            {activityRegistrations.map(registration => (
+              <div
+                key={registration.id}
+                className="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow"
+              >
+                <div className="flex items-start justify-between">
+                  <div className="flex-1">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                      {registration.activity.title}
+                    </h3>
+                    <p className="text-gray-600 mb-4 line-clamp-2">
+                      {registration.activity.description}
+                    </p>
+                    
+                    <div className="flex flex-wrap gap-4 text-sm text-gray-500 mb-4">
+                      <div className="flex items-center gap-1">
+                        <Clock className="w-4 h-4" />
+                        <span>{formatDate(registration.activity.start_date)}</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <MapPin className="w-4 h-4" />
+                        <span>{registration.activity.location}</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <Users className="w-4 h-4" />
+                        <span>{registration.activity.current_participants}/{registration.activity.max_participants}</span>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-center gap-4">
+                      <span className={`px-3 py-1 rounded-full text-xs font-medium ${
+                        registration.status === 'registered' ? 'bg-green-100 text-green-800' :
+                        registration.status === 'attended' ? 'bg-blue-100 text-blue-800' :
+                        registration.status === 'no_show' ? 'bg-yellow-100 text-yellow-800' :
+                        'bg-red-100 text-red-800'
+                      }`}>
+                        {registration.status === 'registered' ? '已报名' :
+                         registration.status === 'attended' ? '已参加' :
+                         registration.status === 'no_show' ? '未出席' : '已取消'}
+                      </span>
+                      <span className="text-xs text-gray-500">
+                        报名时间：{formatDate(registration.registration_date)}
+                      </span>
+                    </div>
+                  </div>
+                  
+                  <div className="flex flex-col gap-2 ml-4">
+                    <button
+                      onClick={() => window.open(`/activity/${registration.activity.id}`, '_blank')}
+                      className="px-4 py-2 text-sm font-medium text-blue-600 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors"
+                    >
+                      查看详情
+                    </button>
+                    {registration.status === 'registered' && (
+                      <button
+                        onClick={() => {
+                          // TODO: 实现取消报名功能
+                          console.log('取消报名', registration.id);
+                        }}
+                        className="px-4 py-2 text-sm font-medium text-red-600 bg-red-50 rounded-lg hover:bg-red-100 transition-colors flex items-center gap-1"
+                      >
+                        <X className="w-4 h-4" />
+                        取消报名
+                      </button>
+                    )}
+                  </div>
+                </div>
+                
+                {registration.notes && (
+                  <div className="mt-4 p-3 bg-gray-50 rounded-lg">
+                    <p className="text-sm text-gray-600">
+                      <span className="font-medium">备注：</span>
+                      {registration.notes}
+                    </p>
+                  </div>
+                )}
+              </div>
             ))}
           </div>
         );

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Plus } from 'lucide-react';
 import { toast } from 'sonner';
@@ -112,6 +112,7 @@ const ProfilePage: React.FC = () => {
     achievements,
     followers,
     followingUsers,
+    activityRegistrations,
     loading,
     isOwnProfile,
     isFollowing,
@@ -122,7 +123,8 @@ const ProfilePage: React.FC = () => {
     handleAvatarUpload: handleUploadAvatar,
     handleSaveProfile,
     handlePublishDraft,
-    markNotificationAsRead
+    markNotificationAsRead,
+    fetchActivityRegistrations
   } = useProfile(userId);
 
   // 添加缺少的处理函数
@@ -144,6 +146,13 @@ const ProfilePage: React.FC = () => {
       toast.error('发布失败，请重试');
     }
   };
+
+  // 当切换到活动标签页时获取活动报名数据
+  useEffect(() => {
+    if (activeTab === 'activities' && isOwnProfile) {
+      fetchActivityRegistrations();
+    }
+  }, [activeTab, isOwnProfile, fetchActivityRegistrations]);
 
   if (loading) {
     return (
@@ -205,6 +214,7 @@ const ProfilePage: React.FC = () => {
             achievements={achievements}
             followers={followers}
             following={followingUsers}
+            activityRegistrations={activityRegistrations}
             viewMode={viewMode}
             searchQuery={searchQuery}
             filterType={filterType}

@@ -1,15 +1,15 @@
 import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { X, Eye, EyeOff, Mail, User, Lock, CheckCircle, RefreshCw } from 'lucide-react'
+import { X, Eye, EyeOff, Mail, User, Lock, CheckCircle, RefreshCw, ArrowLeft } from 'lucide-react'
 import { useAuthStore } from '../stores/authStore'
-import { ForgotPasswordModal } from './ForgotPasswordModal'
+import { supabase } from '../lib/supabase'
 import { toast } from 'sonner'
 
 interface AuthModalProps {
   isOpen: boolean
   onClose: () => void
-  mode: 'login' | 'register'
-  onModeChange: (mode: 'login' | 'register') => void
+  mode: 'login' | 'register' | 'forgot-password'
+  onModeChange: (mode: 'login' | 'register' | 'forgot-password') => void
 }
 
 export default function AuthModal({ isOpen, onClose, mode, onModeChange }: AuthModalProps) {
@@ -19,18 +19,28 @@ export default function AuthModal({ isOpen, onClose, mode, onModeChange }: AuthM
     username: '',
     email: '',
     password: '',
-    confirmPassword: ''
+    confirmPassword: '',
+    resetEmail: ''
   })
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
   const [errors, setErrors] = useState<Record<string, string>>({})
-  const [showForgotPassword, setShowForgotPassword] = useState(false)
   const [showEmailVerification, setShowEmailVerification] = useState(false)
   const [registeredEmail, setRegisteredEmail] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [realTimeErrors, setRealTimeErrors] = useState<Record<string, string>>({})
+  const [realTimeErrors, setRealTimeErrors] = useState<Record<string, string>>({})  
+  const [resetEmailSent, setResetEmailSent] = useState(false)
+  const [resetCountdown, setResetCountdown] = useState(0)
   
   const { signIn, signUp, isLoading, resendEmailVerification } = useAuthStore()
+
+  // 重置密码倒计时
+  useEffect(() => {
+    if (resetCountdown > 0) {
+      const timer = setTimeout(() => setResetCountdown(resetCountdown - 1), 1000)
+      return () => clearTimeout(timer)
+    }
+  }, [resetCountdown])
 
   // 重置表单
   useEffect(() => {
@@ -40,11 +50,14 @@ export default function AuthModal({ isOpen, onClose, mode, onModeChange }: AuthM
         username: '',
         email: '',
         password: '',
-        confirmPassword: ''
+        confirmPassword: '',
+        resetEmail: ''
       })
       setErrors({})
       setShowPassword(false)
       setShowConfirmPassword(false)
+      setResetEmailSent(false)
+      setResetCountdown(0)
     }
   }, [isOpen, mode])
 
@@ -64,6 +77,7 @@ export default function AuthModal({ isOpen, onClose, mode, onModeChange }: AuthM
         break
         
       case 'email':
+      case 'resetEmail':
         if (!value.trim()) {
           error = t('auth.emailRequired')
         } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
@@ -126,8 +140,69 @@ export default function AuthModal({ isOpen, onClose, mode, onModeChange }: AuthM
     return Object.keys(filteredErrors).length === 0
   }
 
+  // 处理重置密码
+  const handleResetPassword = async (e: React.FormEvent) => {
+    e.preventDefault()
+    
+    const emailError = validateField('resetEmail', formData.resetEmail)
+    if (emailError) {
+      setErrors({ resetEmail: emailError })
+      return
+    }
+    
+    setErrors({})
+    setIsSubmitting(true)
+    
+    try {
+      const { error } = await supabase.auth.resetPasswordForEmail(formData.resetEmail, {
+        redirectTo: `${window.location.origin}/reset-password`
+      })
+      
+      if (error) {
+        setErrors({ general: error.message })
+      } else {
+        setResetEmailSent(true)
+        setResetCountdown(60)
+        toast.success(t('auth.resetEmailSent'))
+      }
+    } catch (error) {
+      console.error('Reset password error:', error)
+      setErrors({ general: t('auth.unexpectedError') })
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+  
+  // 重新发送重置邮件
+  const handleResendResetEmail = async () => {
+    if (resetCountdown > 0) return
+    
+    setIsSubmitting(true)
+    try {
+      const { error } = await supabase.auth.resetPasswordForEmail(formData.resetEmail, {
+        redirectTo: `${window.location.origin}/reset-password`
+      })
+      
+      if (error) {
+        toast.error(error.message)
+      } else {
+        setResetCountdown(60)
+        toast.success(t('auth.resetEmailSent'))
+      }
+    } catch (error) {
+      console.error('Resend reset email error:', error)
+      toast.error(t('auth.unexpectedError'))
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    
+    if (mode === 'forgot-password') {
+      return handleResetPassword(e)
+    }
     
     // 防止重复提交
     if (isSubmitting || isLoading) return
@@ -241,19 +316,127 @@ export default function AuthModal({ isOpen, onClose, mode, onModeChange }: AuthM
       <div className="bg-white rounded-lg shadow-xl w-full max-w-md">
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-gray-200">
-          <h2 className="text-xl font-semibold text-gray-900">
-            {mode === 'login' ? t('auth.login') : t('auth.register')}
-          </h2>
+          <div className="flex items-center gap-3">
+            {mode === 'forgot-password' && (
+              <button
+                onClick={() => onModeChange('login')}
+                className="p-1 hover:bg-gray-100 rounded-full transition-colors"
+              >
+                <ArrowLeft className="w-5 h-5 text-gray-500" />
+              </button>
+            )}
+            <h2 className="text-xl font-semibold text-gray-900">
+              {mode === 'login' && t('auth.login')}
+              {mode === 'register' && t('auth.register')}
+              {mode === 'forgot-password' && t('auth.forgotPassword')}
+            </h2>
+          </div>
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-gray-600 transition-colors"
+            className="p-2 hover:bg-gray-100 rounded-full transition-colors"
           >
-            <X className="w-5 h-5" />
+            <X className="w-5 h-5 text-gray-500" />
           </button>
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="p-6 space-y-4">
+        {mode === 'forgot-password' ? (
+          resetEmailSent ? (
+            <div className="p-6 text-center space-y-4">
+              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto">
+                <CheckCircle className="w-8 h-8 text-green-600" />
+              </div>
+              <div>
+                <h3 className="text-lg font-medium text-gray-900 mb-2">
+                  {t('auth.resetEmailSent')}
+                </h3>
+                <p className="text-gray-600 text-sm">
+                  {t('auth.resetEmailSentDescription', { email: formData.resetEmail })}
+                </p>
+              </div>
+              <div className="space-y-3">
+                <button
+                  onClick={handleResendResetEmail}
+                  disabled={resetCountdown > 0 || isSubmitting}
+                  className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                >
+                  {isSubmitting ? (
+                    <div className="flex items-center justify-center gap-2">
+                      <RefreshCw className="w-4 h-4 animate-spin" />
+                      {t('auth.sending')}
+                    </div>
+                  ) : resetCountdown > 0 ? (
+                    `${t('auth.resendIn')} ${resetCountdown}s`
+                  ) : (
+                    t('auth.resendEmail')
+                  )}
+                </button>
+                <button
+                  onClick={() => onModeChange('login')}
+                  className="w-full text-gray-600 hover:text-gray-800 transition-colors"
+                >
+                  {t('auth.backToLogin')}
+                </button>
+              </div>
+            </div>
+          ) : (
+            <form onSubmit={handleSubmit} className="p-6 space-y-4">
+              {errors.general && (
+                <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg text-sm">
+                  {errors.general}
+                </div>
+              )}
+              
+              <div className="space-y-2">
+                <label className="block text-sm font-medium text-gray-700">
+                  {t('auth.email')}
+                </label>
+                <div className="relative">
+                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                  <input
+                    type="email"
+                    value={formData.resetEmail}
+                    onChange={(e) => {
+                      const value = e.target.value
+                      setFormData(prev => ({ ...prev, resetEmail: value }))
+                      if (errors.resetEmail) {
+                        const error = validateField('resetEmail', value)
+                        setRealTimeErrors(prev => ({ ...prev, resetEmail: error }))
+                      }
+                    }}
+                    onBlur={(e) => {
+                      const error = validateField('resetEmail', e.target.value)
+                      setRealTimeErrors(prev => ({ ...prev, resetEmail: error }))
+                    }}
+                    className={`w-full pl-10 pr-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                      errors.resetEmail || realTimeErrors.resetEmail ? 'border-red-300' : 'border-gray-300'
+                    }`}
+                    placeholder={t('auth.enterEmail')}
+                  />
+                </div>
+                {(errors.resetEmail || realTimeErrors.resetEmail) && (
+                  <p className="text-red-500 text-sm">{errors.resetEmail || realTimeErrors.resetEmail}</p>
+                )}
+              </div>
+              
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              >
+                {isSubmitting ? (
+                  <div className="flex items-center justify-center gap-2">
+                    <RefreshCw className="w-4 h-4 animate-spin" />
+                    {t('auth.sending')}
+                  </div>
+                ) : (
+                  t('auth.sendResetEmail')
+                )}
+              </button>
+            </form>
+          )
+        ) : (
+          <form onSubmit={handleSubmit} className="p-6 space-y-4">
           {mode === 'register' && (
             <>
               {/* Username */}
@@ -425,7 +608,7 @@ export default function AuthModal({ isOpen, onClose, mode, onModeChange }: AuthM
             <div className="text-center">
               <button
                 type="button"
-                onClick={() => setShowForgotPassword(true)}
+                onClick={() => onModeChange('forgot-password')}
                 className="text-sm text-purple-600 hover:text-purple-700 transition-colors"
               >
                 {t('auth.forgotPasswordTitle')}？
@@ -433,29 +616,23 @@ export default function AuthModal({ isOpen, onClose, mode, onModeChange }: AuthM
             </div>
           )}
         </form>
+        )}
 
         {/* Footer */}
-        <div className="px-6 pb-6 text-center">
-          <p className="text-sm text-gray-600">
-            {mode === 'login' ? t('auth.noAccount') : t('auth.alreadyHaveAccount')}
-            <button
-              onClick={() => onModeChange(mode === 'login' ? 'register' : 'login')}
-              className="text-purple-600 hover:text-purple-700 font-medium ml-1"
-            >
-              {mode === 'login' ? t('auth.switchToRegister') : t('auth.switchToLogin')}
-            </button>
-          </p>
-        </div>
+        {mode !== 'forgot-password' && (
+          <div className="px-6 pb-6 text-center">
+            <p className="text-sm text-gray-600">
+              {mode === 'login' ? t('auth.noAccount') : t('auth.alreadyHaveAccount')}
+              <button
+                onClick={() => onModeChange(mode === 'login' ? 'register' : 'login')}
+                className="text-purple-600 hover:text-purple-700 font-medium ml-1"
+              >
+                {mode === 'login' ? t('auth.switchToRegister') : t('auth.switchToLogin')}
+              </button>
+            </p>
+          </div>
+        )}
       </div>
-
-      {/* 忘记密码模态框 */}
-      <ForgotPasswordModal
-        isOpen={showForgotPassword}
-        onClose={() => setShowForgotPassword(false)}
-        onBackToLogin={() => {
-          setShowForgotPassword(false)
-        }}
-      />
     </div>
   )
 }

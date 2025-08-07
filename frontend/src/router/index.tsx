@@ -9,6 +9,8 @@ import NotFoundPage from '../pages/NotFoundPage'
 import ResetPasswordPage from '../pages/ResetPasswordPage'
 import EmailVerificationPage from '../pages/EmailVerificationPage'
 import SecurityLogsPage from '../pages/SecurityLogsPage'
+import ActivityPage from '../pages/ActivityPage'
+import ActivityDetailPage from '../pages/ActivityDetailPage'
 
 const router = createBrowserRouter([
   {
@@ -23,6 +25,14 @@ const router = createBrowserRouter([
       {
         path: 'hot',
         element: <HotPage />
+      },
+      {
+        path: 'activities',
+        element: <ActivityPage />
+      },
+      {
+        path: 'activities/:id',
+        element: <ActivityDetailPage />
       },
       {
         path: 'profile',

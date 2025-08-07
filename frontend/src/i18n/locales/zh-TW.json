@@ -36,8 +36,10 @@
   "nav": {
     "home": "首頁",
     "hot": "熱門",
-    "profile": "個人檔案",
-    "about": "關於我們"
+    "activities": "活動",
+    "contact": "聯絡合作",
+    "about": "關於我們",
+    "profile": "個人檔案"
   },
   "auth": {
     "login": "登入",

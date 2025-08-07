@@ -1,8 +1,10 @@
 # TODO:
 
-- [x] analyze-hot-page: 分析HotPage.tsx文件的当前实现情况 (priority: High)
-- [ ] enhance-filters: 增强筛选功能：优化内容类型、排序方式、标签筛选UI，显示结果数量 (**IN PROGRESS**) (priority: High)
-- [ ] optimize-infinite-scroll: 优化无限滚动：添加骨架屏、提升加载性能、错误重试机制、回到顶部按钮、加载状态反馈 (priority: High)
-- [ ] enhance-search: 增强搜索功能：关键词搜索、搜索历史记录、搜索结果展示 (priority: High)
-- [ ] improve-interactions: 提升交互体验：帖子卡片hover效果、快速操作按钮、媒体内容展示、空状态和错误状态展示 (priority: High)
-- [ ] test-features: 测试所有新增功能，确保正常运行 (priority: Medium)
+- [x] check-activities-table-structure: 检查当前activities表的结构，确认是否需要创建新的迁移文件 (priority: High)
+- [x] create-activities-table-migration: 创建006_create_activities_table.sql迁移文件，包含状态字段支持 (priority: High)
+- [x] update-activity-page-status-filter: 更新ActivityPage.tsx，添加活动状态筛选功能 (priority: High)
+- [x] improve-search-functionality: 改进搜索功能，确保搜索能正常工作 (priority: High)
+- [x] add-status-auto-calculation: 根据活动时间自动判断活动状态（筹备中、进行中、已结束） (priority: Medium)
+- [x] update-sample-data-with-status: 更新示例数据，包含不同状态的活动 (priority: Medium)
+- [x] add-status-labels-to-cards: 在活动卡片上显示状态标签 (priority: Medium)
+- [x] test-status-functionality: 测试活动状态功能和搜索功能是否正常 (priority: Low)

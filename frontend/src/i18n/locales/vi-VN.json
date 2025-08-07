@@ -36,8 +36,10 @@
   "nav": {
     "home": "Trang chủ",
     "hot": "Thịnh hành",
-    "profile": "Hồ sơ",
-    "about": "Về chúng tôi"
+    "activities": "Hoạt động",
+    "contact": "Liên hệ hợp tác",
+    "about": "Về chúng tôi",
+    "profile": "Hồ sơ"
   },
   "auth": {
     "login": "Đăng nhập",

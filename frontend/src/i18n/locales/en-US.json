@@ -25,6 +25,8 @@
   "nav": {
     "home": "Home",
     "hot": "Hot",
+    "activities": "Activities",
+    "contact": "Contact",
     "about": "About Us",
     "profile": "Profile",
     "settings": "Settings",

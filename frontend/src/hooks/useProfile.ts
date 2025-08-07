@@ -10,6 +10,7 @@ import {
   Notification,
   Analytics,
   ActivityStats,
+  ActivityRegistration,
   TabType,
   FilterType
 } from '../types/profile'
@@ -36,6 +37,7 @@ export const useProfile = (userId?: string) => {
   const [followers, setFollowers] = useState<UserProfile[]>([])
   const [followingUsers, setFollowingUsers] = useState<UserProfile[]>([])
   const [achievements, setAchievements] = useState<Achievement[]>([])
+  const [activityRegistrations, setActivityRegistrations] = useState<ActivityRegistration[]>([])
   const [activityStats, setActivityStats] = useState<ActivityStats>({
     dailyPosts: 0,
     weeklyEngagement: 0,
@@ -280,6 +282,43 @@ export const useProfile = (userId?: string) => {
       setAchievements(mockAchievements)
     } catch (error) {
       console.error('Error fetching achievements:', error)
+    }
+  }
+
+  const fetchActivityRegistrations = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('activity_registrations')
+        .select(`
+          *,
+          activities(
+            id,
+            title,
+            description,
+            start_time,
+            end_time,
+            location,
+            max_participants,
+            current_participants,
+            status,
+            category,
+            tags
+          )
+        `)
+        .eq('user_id', currentUserId)
+        .order('registration_date', { ascending: false })
+
+      if (error) throw error
+      
+      const registrations = data?.map(reg => ({
+        ...reg,
+        activity: reg.activities
+      })) || []
+      
+      setActivityRegistrations(registrations)
+    } catch (error) {
+      console.error('Error fetching activity registrations:', error)
+      toast.error('获取活动报名记录失败')
     }
   }
 
@@ -538,6 +577,7 @@ export const useProfile = (userId?: string) => {
     followingUsers,
     achievements,
     activityStats,
+    activityRegistrations,
     isOwnProfile,
     currentUserId,
     
@@ -552,6 +592,7 @@ export const useProfile = (userId?: string) => {
     fetchFollowing,
     fetchAchievements,
     fetchActivityStats,
+    fetchActivityRegistrations,
     handleSaveProfile,
     handleFollow,
     handleBookmarkPost,

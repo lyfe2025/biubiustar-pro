@@ -11,7 +11,7 @@ export default function Header() {
   const location = useLocation()
   const { user, isAuthenticated } = useAuthStore()
   const [showAuthModal, setShowAuthModal] = useState(false)
-  const [authMode, setAuthMode] = useState<'login' | 'register'>('login')
+  const [authMode, setAuthMode] = useState<'login' | 'register' | 'forgot-password'>('login')
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   // Close mobile menu when route changes
@@ -40,6 +40,8 @@ export default function Header() {
   const navItems = [
     { path: '/', label: t('nav.home') },
     { path: '/hot', label: t('nav.hot') },
+    { path: '/activities', label: t('nav.activities') },
+    { path: '/about#contact', label: t('nav.contact') },
     { path: '/about', label: t('nav.about') }
   ]
 

@@ -60,6 +60,31 @@ export interface Analytics {
   topPost: Post | null
 }
 
+export interface ActivityRegistration {
+  id: string
+  activity_id: string
+  user_id: string
+  registration_date: string
+  status: 'registered' | 'cancelled' | 'attended' | 'no_show'
+  notes?: string
+  created_at: string
+  updated_at: string
+  activity: {
+    id: string
+    title: string
+    description: string
+    start_date: string
+    end_date: string
+    location: string
+    max_participants: number
+    current_participants: number
+    status: 'preparing' | 'ongoing' | 'completed' | 'cancelled' | 'active'
+    category: string
+    tags: string[]
+    image_url?: string
+  }
+}
+
 export interface ActivityStats {
   dailyPosts: number
   weeklyEngagement: number
@@ -74,7 +99,7 @@ export interface ActivityStats {
   weeklyActivity: number[]
 }
 
-export type TabType = 'posts' | 'likes' | 'bookmarks' | 'drafts' | 'history' | 'followers' | 'following' | 'achievements' | 'settings' | 'analytics' | 'messages' | 'notifications'
+export type TabType = 'posts' | 'likes' | 'bookmarks' | 'drafts' | 'history' | 'followers' | 'following' | 'achievements' | 'settings' | 'analytics' | 'messages' | 'notifications' | 'activities'
 
 export type ViewMode = 'grid' | 'list'
 

@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
-import { X, Mail, ArrowLeft } from 'lucide-react'
+import React, { useState, useEffect } from 'react'
+import { X, Mail, ArrowLeft, CheckCircle, RefreshCw } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
-import { useAuthStore } from '../stores/authStore'
+import { supabase } from '../lib/supabase'
 import { toast } from 'sonner'
 
 interface ForgotPasswordModalProps {
@@ -10,17 +10,19 @@ interface ForgotPasswordModalProps {
   onBackToLogin: () => void
 }
 
-export const ForgotPasswordModal: React.FC<ForgotPasswordModalProps> = ({
-  isOpen,
-  onClose,
-  onBackToLogin
-}) => {
+export default function ForgotPasswordModal({ isOpen, onClose, onBackToLogin }: ForgotPasswordModalProps) {
   const { t } = useTranslation()
-  const { forgotPassword } = useAuthStore()
   const [email, setEmail] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [emailSent, setEmailSent] = useState(false)
-  const [resendCountdown, setResendCountdown] = useState(0)
+  const [countdown, setCountdown] = useState(0)
+
+  useEffect(() => {
+    if (countdown > 0) {
+      const timer = setTimeout(() => setCountdown(countdown - 1), 1000)
+      return () => clearTimeout(timer)
+    }
+  }, [countdown])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -31,42 +33,41 @@ export const ForgotPasswordModal: React.FC<ForgotPasswordModalProps> = ({
 
     setIsLoading(true)
     try {
-      await forgotPassword(email)
-      setEmailSent(true)
-      toast.success(t('auth.resetEmailSent'))
-      startResendCountdown()
-    } catch (error: any) {
-      console.error('Forgot password error:', error)
-      toast.error(error.message || t('auth.resetPasswordFailed'))
+      const { error } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: `${window.location.origin}/reset-password`,
+      })
+
+      if (error) {
+        toast.error(error.message)
+      } else {
+        setEmailSent(true)
+        setCountdown(60)
+        toast.success(t('auth.resetEmailSent'))
+      }
+    } catch (error) {
+      toast.error(t('common.error'))
     } finally {
       setIsLoading(false)
     }
   }
 
-  const startResendCountdown = () => {
-    setResendCountdown(60)
-    const timer = setInterval(() => {
-      setResendCountdown((prev) => {
-        if (prev <= 1) {
-          clearInterval(timer)
-          return 0
-        }
-        return prev - 1
-      })
-    }, 1000)
-  }
-
   const handleResend = async () => {
-    if (resendCountdown > 0) return
+    if (countdown > 0) return
     
     setIsLoading(true)
     try {
-      await forgotPassword(email)
-      toast.success(t('auth.resetEmailSent'))
-      startResendCountdown()
-    } catch (error: any) {
-      console.error('Resend error:', error)
-      toast.error(error.message || t('auth.resetPasswordFailed'))
+      const { error } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: `${window.location.origin}/reset-password`,
+      })
+
+      if (error) {
+        toast.error(error.message)
+      } else {
+        setCountdown(60)
+        toast.success(t('auth.resetEmailSent'))
+      }
+    } catch (error) {
+      toast.error(t('common.error'))
     } finally {
       setIsLoading(false)
     }
@@ -75,8 +76,15 @@ export const ForgotPasswordModal: React.FC<ForgotPasswordModalProps> = ({
   const handleClose = () => {
     setEmail('')
     setEmailSent(false)
-    setResendCountdown(0)
+    setCountdown(0)
     onClose()
+  }
+
+  const handleBackToLogin = () => {
+    setEmail('')
+    setEmailSent(false)
+    setCountdown(0)
+    onBackToLogin()
   }
 
   if (!isOpen) return null
@@ -160,11 +168,11 @@ export const ForgotPasswordModal: React.FC<ForgotPasswordModalProps> = ({
               
               <button
                 onClick={handleResend}
-                disabled={resendCountdown > 0 || isLoading}
+                disabled={countdown > 0 || isLoading}
                 className="text-blue-600 hover:text-blue-700 font-medium disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {resendCountdown > 0 
-                  ? t('auth.resendIn', { seconds: resendCountdown })
+                {countdown > 0 
+                  ? t('auth.resendIn', { seconds: countdown })
                   : t('auth.resend')
                 }
               </button>
