@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom'
-import { Home, TrendingUp, User, LogIn, UserPlus, Building2, Menu, X } from 'lucide-react'
+import { Menu, X } from 'lucide-react'
 import { useAuthStore } from '../stores/authStore'
 import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -38,9 +38,9 @@ export default function Header() {
   }
 
   const navItems = [
-    { path: '/', label: t('nav.home'), icon: Home },
-    { path: '/hot', label: t('nav.hot'), icon: TrendingUp },
-    { path: '/about', label: t('nav.about'), icon: Building2 }
+    { path: '/', label: t('nav.home') },
+    { path: '/hot', label: t('nav.hot') },
+    { path: '/about', label: t('nav.about') }
   ]
 
   return (
@@ -58,17 +58,16 @@ export default function Header() {
 
             {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center space-x-8">
-              {navItems.map(({ path, label, icon: Icon }) => (
+              {navItems.map(({ path, label }) => (
                 <Link
                   key={path}
                   to={path}
-                  className={`flex items-center space-x-1 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                  className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
                     location.pathname === path
                       ? 'text-purple-600 bg-purple-50'
                       : 'text-gray-600 hover:text-purple-600 hover:bg-gray-50'
                   }`}
                 >
-                  <Icon className="w-4 h-4" />
                   <span>{label}</span>
                 </Link>
               ))}
@@ -94,26 +93,23 @@ export default function Header() {
               {isAuthenticated && user ? (
                 <Link
                   to="/profile"
-                  className="flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-purple-600 hover:bg-gray-50 transition-colors"
+                  className="px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-purple-600 hover:bg-gray-50 transition-colors"
                 >
-                  <User className="w-4 h-4" />
-                  <span className="hidden lg:inline">{user.username}</span>
+                  <span>{user.username}</span>
                 </Link>
               ) : (
                 <div className="flex items-center space-x-2">
                   <button
                     onClick={() => handleAuthClick('login')}
-                    className="flex items-center space-x-1 px-3 py-2 text-sm font-medium text-gray-600 hover:text-purple-600 transition-colors"
+                    className="px-3 py-2 text-sm font-medium text-gray-600 hover:text-purple-600 transition-colors"
                   >
-                    <LogIn className="w-4 h-4" />
-                    <span className="hidden lg:inline">{t('auth.login')}</span>
+                    <span>{t('auth.login')}</span>
                   </button>
                   <button
                     onClick={() => handleAuthClick('register')}
-                    className="flex items-center space-x-1 px-3 py-2 bg-purple-600 text-white rounded-md text-sm font-medium hover:bg-purple-700 transition-colors"
+                    className="px-3 py-2 bg-purple-600 text-white rounded-md text-sm font-medium hover:bg-purple-700 transition-colors"
                   >
-                    <UserPlus className="w-4 h-4" />
-                    <span className="hidden lg:inline">{t('auth.register')}</span>
+                    <span>{t('auth.register')}</span>
                   </button>
                 </div>
               )}
@@ -125,17 +121,16 @@ export default function Header() {
             <div className="md:hidden mobile-menu-container">
               <div className="px-2 pt-2 pb-3 space-y-1 bg-white border-t border-gray-200">
                 {/* Navigation Links */}
-                {navItems.map(({ path, label, icon: Icon }) => (
+                {navItems.map(({ path, label }) => (
                   <Link
                     key={path}
                     to={path}
-                    className={`flex items-center space-x-3 px-3 py-3 rounded-md text-base font-medium transition-colors ${
+                    className={`px-3 py-3 rounded-md text-base font-medium transition-colors ${
                       location.pathname === path
                         ? 'text-purple-600 bg-purple-50'
                         : 'text-gray-600 hover:text-purple-600 hover:bg-gray-50'
                     }`}
                   >
-                    <Icon className="w-5 h-5" />
                     <span>{label}</span>
                   </Link>
                 ))}
@@ -150,25 +145,22 @@ export default function Header() {
                   {isAuthenticated && user ? (
                     <Link
                       to="/profile"
-                      className="flex items-center space-x-3 px-3 py-3 rounded-md text-base font-medium text-gray-600 hover:text-purple-600 hover:bg-gray-50 transition-colors"
+                      className="px-3 py-3 rounded-md text-base font-medium text-gray-600 hover:text-purple-600 hover:bg-gray-50 transition-colors block"
                     >
-                      <User className="w-5 h-5" />
                       <span>{user.username}</span>
                     </Link>
                   ) : (
                     <div className="space-y-2">
                       <button
                         onClick={() => handleAuthClick('login')}
-                        className="flex items-center space-x-3 w-full px-3 py-3 text-base font-medium text-gray-600 hover:text-purple-600 hover:bg-gray-50 transition-colors rounded-md"
+                        className="w-full px-3 py-3 text-base font-medium text-gray-600 hover:text-purple-600 hover:bg-gray-50 transition-colors rounded-md text-left"
                       >
-                        <LogIn className="w-5 h-5" />
                         <span>{t('auth.login')}</span>
                       </button>
                       <button
                         onClick={() => handleAuthClick('register')}
-                        className="flex items-center space-x-3 w-full px-3 py-3 bg-purple-600 text-white rounded-md text-base font-medium hover:bg-purple-700 transition-colors"
+                        className="w-full px-3 py-3 bg-purple-600 text-white rounded-md text-base font-medium hover:bg-purple-700 transition-colors text-left"
                       >
-                        <UserPlus className="w-5 h-5" />
                         <span>{t('auth.register')}</span>
                       </button>
                     </div>
