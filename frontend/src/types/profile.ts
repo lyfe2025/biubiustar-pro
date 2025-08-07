@@ -64,9 +64,17 @@ export interface ActivityStats {
   dailyPosts: number
   weeklyEngagement: number
   monthlyGrowth: number
+  totalPosts: number
+  totalLikes: number
+  totalComments: number
+  totalShares: number
+  avgEngagement: number
+  peakHour: number
+  activeHours: number[]
+  weeklyActivity: number[]
 }
 
-export type TabType = 'posts' | 'likes' | 'bookmarks' | 'drafts' | 'history' | 'followers' | 'following' | 'achievements' | 'settings' | 'analytics' | 'messages'
+export type TabType = 'posts' | 'likes' | 'bookmarks' | 'drafts' | 'history' | 'followers' | 'following' | 'achievements' | 'settings' | 'analytics' | 'messages' | 'notifications'
 
 export type ViewMode = 'grid' | 'list'
 

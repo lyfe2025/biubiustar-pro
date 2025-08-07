@@ -7,20 +7,20 @@ interface ProfileHeaderProps {
   profile: UserProfile;
   isOwnProfile: boolean;
   isFollowing: boolean;
-  onEditProfile: () => void;
-  onFollowToggle: () => void;
-  onSendMessage: () => void;
-  onAvatarChange: (file: File) => void;
+  onFollow: () => void;
+  onUnfollow: () => void;
+  onUploadAvatar: (file: File) => void;
+  onSaveProfile: (editForm: { username: string; bio: string; }) => Promise<boolean>;
 }
 
 export const ProfileHeader: React.FC<ProfileHeaderProps> = ({
   profile,
   isOwnProfile,
   isFollowing,
-  onEditProfile,
-  onFollowToggle,
-  onSendMessage,
-  onAvatarChange
+  onFollow,
+  onUnfollow,
+  onUploadAvatar,
+  onSaveProfile
 }) => {
   const [isAvatarHovered, setIsAvatarHovered] = useState(false);
 
@@ -32,7 +32,7 @@ export const ProfileHeader: React.FC<ProfileHeaderProps> = ({
       input.onchange = (e) => {
         const file = (e.target as HTMLInputElement).files?.[0];
         if (file) {
-          onAvatarChange(file);
+          onUploadAvatar(file);
         }
       };
       input.click();
@@ -43,13 +43,7 @@ export const ProfileHeader: React.FC<ProfileHeaderProps> = ({
     <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
       {/* 背景图片区域 */}
       <div className="relative h-32 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg mb-4 overflow-hidden">
-        {profile.coverImage && (
-          <img
-            src={profile.coverImage}
-            alt="Cover"
-            className="w-full h-full object-cover"
-          />
-        )}
+        <div className="w-full h-full bg-gradient-to-r from-blue-400 to-purple-500"></div>
         {isOwnProfile && (
           <button className="absolute top-2 right-2 p-2 bg-black bg-opacity-50 text-white rounded-full hover:bg-opacity-70 transition-all">
             <Camera className="w-4 h-4" />
@@ -69,7 +63,7 @@ export const ProfileHeader: React.FC<ProfileHeaderProps> = ({
             onClick={handleAvatarClick}
           >
             <img
-              src={profile.avatar || getDefaultAvatarUrl(profile.username)}
+              src={profile.avatar_url || getDefaultAvatarUrl(profile.username)}
               alt={profile.username}
               className="w-full h-full object-cover"
             />
@@ -79,7 +73,7 @@ export const ProfileHeader: React.FC<ProfileHeaderProps> = ({
               </div>
             )}
           </div>
-          {profile.isVerified && (
+          {false && (
             <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
               <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
                 <path
@@ -97,27 +91,16 @@ export const ProfileHeader: React.FC<ProfileHeaderProps> = ({
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>
               <h1 className="text-2xl font-bold text-gray-900 truncate">
-                {profile.displayName || profile.username}
+                {profile.username}
               </h1>
               <p className="text-gray-600">@{profile.username}</p>
               {profile.bio && (
                 <p className="mt-2 text-gray-700 max-w-md">{profile.bio}</p>
               )}
-              {profile.location && (
-                <p className="mt-1 text-sm text-gray-500">{profile.location}</p>
-              )}
-              {profile.website && (
-                <a
-                  href={profile.website}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-1 text-sm text-blue-600 hover:underline block"
-                >
-                  {profile.website}
-                </a>
-              )}
+
+
               <p className="mt-1 text-sm text-gray-500">
-                加入于 {new Date(profile.joinDate).toLocaleDateString('zh-CN')}
+                加入于 {new Date(profile.created_at).toLocaleDateString('zh-CN')}
               </p>
             </div>
 
@@ -125,7 +108,7 @@ export const ProfileHeader: React.FC<ProfileHeaderProps> = ({
             <div className="flex items-center gap-2">
               {isOwnProfile ? (
                 <button
-                  onClick={onEditProfile}
+                  onClick={() => {}}
                   className="flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors"
                 >
                   <Edit className="w-4 h-4" />
@@ -134,7 +117,7 @@ export const ProfileHeader: React.FC<ProfileHeaderProps> = ({
               ) : (
                 <>
                   <button
-                    onClick={onFollowToggle}
+                    onClick={isFollowing ? onUnfollow : onFollow}
                     className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${
                       isFollowing
                         ? 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -145,7 +128,7 @@ export const ProfileHeader: React.FC<ProfileHeaderProps> = ({
                     {isFollowing ? '已关注' : '关注'}
                   </button>
                   <button
-                    onClick={onSendMessage}
+                    onClick={() => {}}
                     className="flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors"
                   >
                     <MessageCircle className="w-4 h-4" />
@@ -164,23 +147,21 @@ export const ProfileHeader: React.FC<ProfileHeaderProps> = ({
       {/* 统计数据 */}
       <div className="flex items-center gap-6 mt-6 pt-4 border-t border-gray-100">
         <div className="text-center">
-          <div className="text-xl font-bold text-gray-900">{profile.postsCount}</div>
+          <div className="text-xl font-bold text-gray-900">{profile.posts_count}</div>
           <div className="text-sm text-gray-600">帖子</div>
         </div>
         <div className="text-center">
-          <div className="text-xl font-bold text-gray-900">{profile.followersCount}</div>
+          <div className="text-xl font-bold text-gray-900">{profile.followers_count}</div>
           <div className="text-sm text-gray-600">关注者</div>
         </div>
         <div className="text-center">
-          <div className="text-xl font-bold text-gray-900">{profile.followingCount}</div>
+          <div className="text-xl font-bold text-gray-900">{profile.following_count}</div>
           <div className="text-sm text-gray-600">关注中</div>
         </div>
-        {profile.likesCount !== undefined && (
-          <div className="text-center">
-            <div className="text-xl font-bold text-gray-900">{profile.likesCount}</div>
-            <div className="text-sm text-gray-600">获赞</div>
-          </div>
-        )}
+        <div className="text-center">
+          <div className="text-xl font-bold text-gray-900">0</div>
+          <div className="text-sm text-gray-500">获赞</div>
+        </div>
       </div>
     </div>
   );

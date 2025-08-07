@@ -1,12 +1,8 @@
 # TODO:
 
-- [x] create-types: 创建 types/profile.ts - 分离所有接口定义（Post, UserProfile, Draft, Achievement, Notification等） (priority: High)
-- [x] create-profile-utils: 创建 utils/profileUtils.ts - 分离工具函数（formatDate等） (priority: High)
-- [x] create-profile-hook: 创建 hooks/useProfile.ts - 分离数据获取和状态管理逻辑 (priority: High)
-- [x] create-profile-header: 创建 components/profile/ProfileHeader.tsx - 用户头像和基本信息组件 (priority: High)
-- [ ] create-profile-tabs: 创建 components/profile/ProfileTabs.tsx - 标签页导航组件 (**IN PROGRESS**) (priority: High)
-- [ ] create-profile-content: 创建 components/profile/ProfileContent.tsx - 内容展示区域组件 (priority: High)
-- [ ] create-profile-settings: 创建 components/profile/ProfileSettings.tsx - 设置相关组件 (priority: High)
-- [ ] create-profile-analytics: 创建 components/profile/ProfileAnalytics.tsx - 数据统计组件 (priority: High)
-- [ ] refactor-main-profile: 重构主 ProfilePage.tsx 文件，整合所有分离的组件，确保不超过500行 (priority: High)
-- [ ] verify-functionality: 验证重构后的功能完整性和正确性 (priority: Medium)
+- [x] analyze-hot-page: 分析HotPage.tsx文件的当前实现情况 (priority: High)
+- [ ] enhance-filters: 增强筛选功能：优化内容类型、排序方式、标签筛选UI，显示结果数量 (**IN PROGRESS**) (priority: High)
+- [ ] optimize-infinite-scroll: 优化无限滚动：添加骨架屏、提升加载性能、错误重试机制、回到顶部按钮、加载状态反馈 (priority: High)
+- [ ] enhance-search: 增强搜索功能：关键词搜索、搜索历史记录、搜索结果展示 (priority: High)
+- [ ] improve-interactions: 提升交互体验：帖子卡片hover效果、快速操作按钮、媒体内容展示、空状态和错误状态展示 (priority: High)
+- [ ] test-features: 测试所有新增功能，确保正常运行 (priority: Medium)

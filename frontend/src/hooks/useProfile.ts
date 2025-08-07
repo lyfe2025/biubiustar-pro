@@ -39,10 +39,18 @@ export const useProfile = (userId?: string) => {
   const [activityStats, setActivityStats] = useState<ActivityStats>({
     dailyPosts: 0,
     weeklyEngagement: 0,
-    monthlyGrowth: 0
+    monthlyGrowth: 0,
+    totalPosts: 0,
+    totalLikes: 0,
+    totalComments: 0,
+    totalShares: 0,
+    avgEngagement: 0,
+    peakHour: 14,
+    activeHours: [9, 10, 11, 14, 15, 16, 20, 21],
+    weeklyActivity: [65, 78, 82, 75, 88, 45, 52]
   })
 
-  const isOwnProfile = user?.id === userId || (!userId && user)
+  const isOwnProfile = Boolean(user?.id === userId || (!userId && user))
   const currentUserId = userId || user?.id
 
   const fetchProfile = async () => {
@@ -280,7 +288,15 @@ export const useProfile = (userId?: string) => {
       setActivityStats({
         dailyPosts: 2,
         weeklyEngagement: 85,
-        monthlyGrowth: 15
+        monthlyGrowth: 15,
+        totalPosts: 0,
+        totalLikes: 0,
+        totalComments: 0,
+        totalShares: 0,
+        avgEngagement: 0,
+        peakHour: 14,
+        activeHours: [9, 10, 11, 14, 15, 16, 20, 21],
+        weeklyActivity: [65, 78, 82, 75, 88, 45, 52]
       })
     } catch (error) {
       console.error('Error fetching activity stats:', error)
@@ -484,6 +500,29 @@ export const useProfile = (userId?: string) => {
     }
   }
 
+  const markNotificationAsRead = async (notificationId: string) => {
+    try {
+      const { error } = await supabase
+        .from('notifications')
+        .update({ read: true })
+        .eq('id', notificationId)
+      
+      if (error) throw error
+      
+      setNotifications(prev => 
+        prev.map(notification => 
+          notification.id === notificationId 
+            ? { ...notification, read: true }
+            : notification
+        )
+      )
+      setUnreadCount(prev => Math.max(0, prev - 1))
+    } catch (error) {
+      console.error('Error marking notification as read:', error)
+      toast.error('操作失败，请重试')
+    }
+  }
+
   return {
     // State
     profile,
@@ -520,6 +559,7 @@ export const useProfile = (userId?: string) => {
     handleAvatarUpload,
     handlePublishDraft,
     handleDeleteDraft,
+    markNotificationAsRead,
     
     // Setters
     setProfile,
